@@ -20,7 +20,7 @@ ON_DEATH(function(signal, err) {
 })
 
 let httpServer
-let  io
+let io
 if (!prod) {
   const express = require('express')
   const app = express()
@@ -34,8 +34,8 @@ if (!prod) {
   })
 } else {
   const options = {
-    key: fs.readFileSync('/usr/apps/key.pem'),
-    cert: fs.readFileSync('/usr/apps/cert.pem')
+    key: fs.readFileSync('/etc/ssl/private/agilesimulations.co.uk.key'),
+    cert: fs.readFileSync('/etc/ssl/certs/07DDA10F5A5AB75BD9E9508BC490D32C.cer')
   }
   httpServer = require('https').createServer(options)
   io = require('socket.io')(httpServer, {
