@@ -2,7 +2,6 @@ const fs = require('fs')
 
 const ON_DEATH = require('death')({uncaughtException: true})
 const os = require('os')
-
 const prod = os.hostname() == 'agilesimulations' ? true : false
 const logFile = prod ? process.argv[4] : 'server.log'
 
@@ -20,22 +19,33 @@ ON_DEATH(function(signal, err) {
   })
 })
 
-const options = {
-  key: fs.readFileSync('/usr/apps/key.pem'),
-  cert: fs.readFileSync('/usr/apps/server.crt')
-}
-
-const express = require('express')
-const app = express()
-const https = require('https').createServer(options)
-
-const io = require('socket.io')(https, {
-  cors: {
-    origins: ['http://localhost:*', 'https://agilesimulations.co.uk'],
-    methods: ['GET', 'POST'],
-    credentials: true
+let httpServer
+let  io
+if (!prod) {
+  const express = require('express')
+  const app = express()
+  httpServer = require('http').createServer(app)
+  io = require('socket.io')(httpServer, {
+    cors: {
+      origins: ['http://localhost:*'],
+      methods: ['GET', 'POST'],
+      credentials: true
+    }
+  })
+} else {
+  const options = {
+    key: fs.readFileSync('/usr/apps/key.pem'),
+    cert: fs.readFileSync('/usr/apps/cert.pem')
   }
-})
+  httpServer = require('https').createServer(options)
+  io = require('socket.io')(httpServer, {
+    cors: {
+      origins: ['https://agilesimulations.co.uk'],
+      methods: ['GET', 'POST'],
+      credentials: true
+    }
+  })
+}
 
 const connectDebugOff = prod
 const debugOn = !prod
@@ -74,6 +84,6 @@ io.on('connection', (socket) => {
 
 const port = process.argv[2] || 3016
 
-https.listen(port, () => {
+httpServer.listen(port, () => {
   console.log('Listening on *:' + port)
 })

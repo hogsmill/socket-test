@@ -24,7 +24,6 @@ export default {
       connStr = 'http://localhost:3016'
     } else {
       connStr = 'https://agilesimulations.co.uk:3016'
-      //connStr = 'https://77.68.122.69:3016'
     }
     console.log('Connecting to: ' + connStr)
     this.socket = io(connStr)
