@@ -22,7 +22,7 @@ ON_DEATH(function(signal, err) {
 
 const options = {
   key: fs.readFileSync('/usr/apps/key.pem'),
-  cert: fs.readFileSync('/usr/apps/cert.pem')
+  cert: fs.readFileSync('/usr/apps/csr.pem')
 }
 
 const express = require('express')
