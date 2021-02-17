@@ -2,7 +2,9 @@
   <div id="app">
     <h1>Socket Test</h1>
     <h2>Message: {{ message }}</h2>
-    <button @click="send()">Send</button>
+    <button @click="send()">
+      Send
+    </button>
   </div>
 </template>
 
@@ -17,11 +19,12 @@ export default {
     }
   },
   created() {
-    let host = '77.68.122.69'
+    let connStr
     if (location.hostname == 'localhost') {
-      host = 'localhost'
+      connStr = 'http://localhost:3016'
+    } else {
+      connStr = 'https://77.68.122.69:3016'
     }
-    const connStr = 'http://' + host + ':3016'
     console.log('Connecting to: ' + connStr)
     this.socket = io(connStr)
 

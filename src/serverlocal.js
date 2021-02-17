@@ -1,5 +1,4 @@
 const fs = require('fs')
-
 const ON_DEATH = require('death')({uncaughtException: true})
 const os = require('os')
 
@@ -20,16 +19,10 @@ ON_DEATH(function(signal, err) {
   })
 })
 
-const options = {
-  key: fs.readFileSync('/usr/apps/agilesimulations.co.uk.key'),
-  cert: fs.readFileSync('/usr/apps/agilesimulations.co.uk.csr')
-}
-
 const express = require('express')
 const app = express()
-const https = require('https').createServer(options)
-
-const io = require('socket.io')(https, {
+const http = require('http').createServer(app)
+const io = require('socket.io')(http, {
   cors: {
     origins: ['http://localhost:*', 'http://agilesimulations.co.uk'],
     methods: ['GET', 'POST'],
@@ -74,6 +67,6 @@ io.on('connection', (socket) => {
 
 const port = process.argv[2] || 3016
 
-https.listen(port, () => {
+http.listen(port, () => {
   console.log('Listening on *:' + port)
 })
