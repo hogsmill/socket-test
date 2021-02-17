@@ -23,10 +23,11 @@ export default {
     if (location.hostname == 'localhost') {
       connStr = 'http://localhost:3016'
     } else {
-      connStr = 'https://77.68.122.69:3016'
+      connStr = 'https://agilesimulations.co.uk:3016'
+      //connStr = 'https://77.68.122.69:3016'
     }
     console.log('Connecting to: ' + connStr)
-    this.socket = io(connStr, {secure: true})
+    this.socket = io(connStr)
 
     const self = this
     this.socket.on('testMessage', (data) => {
