@@ -26,7 +26,7 @@ export default {
       connStr = 'https://77.68.122.69:3016'
     }
     console.log('Connecting to: ' + connStr)
-    this.socket = io(connStr)
+    this.socket = io(connStr, {secure: true})
 
     const self = this
     this.socket.on('testMessage', (data) => {
