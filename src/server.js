@@ -31,7 +31,7 @@ const https = require('https').createServer(options)
 
 const io = require('socket.io')(https, {
   cors: {
-    origins: ['http://localhost:*', 'http://agilesimulations.co.uk'],
+    origins: ['http://localhost:*', 'https://agilesimulations.co.uk'],
     methods: ['GET', 'POST'],
     credentials: true
   }
