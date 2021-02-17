@@ -21,8 +21,8 @@ ON_DEATH(function(signal, err) {
 })
 
 const options = {
-  key: fs.readFileSync('/usr/apps/agilesimulations.co.uk.key'),
-  cert: fs.readFileSync('/usr/apps/agilesimulations.co.uk.crt')
+  key: fs.readFileSync(__dirname + '/../key.pem'),
+  cert: fs.readFileSync(__dirname + '/../cert.pem')
 }
 
 const express = require('express')
