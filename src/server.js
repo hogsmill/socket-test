@@ -47,11 +47,18 @@ if (!prod) {
   })
 }
 
+
+const dbStore = require('./store/dbStore.js')
+
+const MongoClient = require('mongodb').MongoClient
+
+const url = prod ?  'mongodb://127.0.0.1:27017/' : 'mongodb://localhost:27017/'
+const maxIdleTime = 7200000
 const connectDebugOff = prod
 const debugOn = !prod
 
 const connections = {}
-const maxConnections = 500
+const maxConnections = 2000
 
 function emit(event, data) {
   if (debugOn) {
@@ -60,26 +67,38 @@ function emit(event, data) {
   io.emit(event, data)
 }
 
-io.on('connection', (socket) => {
-  const connection = socket.handshake.headers.host
-  connections[connection] = connections[connection] ? connections[connection] + 1 : 1
-  if (Object.keys(connections).length > maxConnections || connections[connection] > maxConnections) {
-    console.log(`Too many connections. Socket ${socket.id} closed`)
-    socket.disconnect(0)
-  } else {
-    connectDebugOff || console.log(`A user connected with socket id ${socket.id} from ${connection} - ${connections[connection]} connections. (${Object.keys(connections).length} clients)`)
-    emit('updateConnections', {connections: connections, maxConnections: maxConnections})
+function emit(event, data) {
+  if (debugOn) {
+    console.log(event, data, '(emit)')
   }
+  io.emit(event, data)
+}
 
-  socket.on('disconnect', () => {
+MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime }, function (err, client) {
+  if (err) throw err
+  const db = client.db('db')
+
+  io.on('connection', (socket) => {
     const connection = socket.handshake.headers.host
-    connections[connection] = connections[connection] - 1
-    connectDebugOff || console.log(`User with socket id ${socket.id} has disconnected.`)
-    emit('updateConnections', {connections: connections, maxConnections: maxConnections})
+    connections[connection] = connections[connection] ? connections[connection] + 1 : 1
+    if (Object.keys(connections).length > maxConnections || connections[connection] > maxConnections) {
+      console.log(`Too many connections. Socket ${socket.id} closed`)
+      socket.disconnect(0)
+    } else {
+      connectDebugOff || console.log(`A user connected with socket id ${socket.id} from ${connection} - ${connections[connection]} connections. (${Object.keys(connections).length} clients)`)
+      emit('updateConnections', {connections: connections, maxConnections: maxConnections})
+    }
+
+    socket.on('disconnect', () => {
+      const connection = socket.handshake.headers.host
+      connections[connection] = connections[connection] - 1
+      connectDebugOff || console.log(`User with socket id ${socket.id} has disconnected.`)
+      emit('updateConnections', {connections: connections, maxConnections: maxConnections})
+    })
+
+    socket.on('testMessage', (data) => { dbStore.testMessage(db, io, data, debugOn) })
+
   })
-
-  socket.on('testMessage', (data) => { emit('testMessage', data) })
-
 })
 
 const port = process.argv[2] || 3016

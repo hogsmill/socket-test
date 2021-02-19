@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Socket Test</h1>
-    <h2>Message: {{ message }}</h2>
+    <h2>Message: {{ message }}, {{ date }}</h2>
     <button @click="send()">
       Send
     </button>
@@ -15,6 +15,7 @@ export default {
   name: 'App',
   data() {
     return {
+      date: '',
       message: ''
     }
   },
@@ -31,6 +32,7 @@ export default {
     const self = this
     this.socket.on('testMessage', (data) => {
       console.log(data)
+      self.date = data.date
       self.message = data.message
     })
   },
