@@ -1,44 +1,42 @@
 <template>
   <div id="app">
     <h1>Socket Test</h1>
-    <h2>Message: {{ message }}, {{ date }}</h2>
+    <h2>Message: ({{ source }}) :{{ message }}, {{ date }}</h2>
     <button @click="send()">
       Send
     </button>
+    <SubComponent />
   </div>
 </template>
 
 <script>
-import io from 'socket.io-client'
+import bus from './socket.js'
+
+import SubComponent from './components/SubComponent.vue'
 
 export default {
   name: 'App',
+  components: {
+    SubComponent
+  },
   data() {
     return {
       date: '',
-      message: ''
+      message: '',
+      source: ''
     }
   },
   created() {
-    let connStr
-    if (location.hostname == 'localhost') {
-      connStr = 'http://localhost:3016'
-    } else {
-      connStr = 'https://agilesimulations.co.uk:3016'
-    }
-    console.log('Connecting to: ' + connStr)
-    this.socket = io(connStr)
-
-    const self = this
-    this.socket.on('testMessage', (data) => {
+    bus.$on('testMessage', (data) => {
       console.log(data)
-      self.date = data.date
-      self.message = data.message
+      this.source = data.source
+      this.date = data.date
+      this.message = data.message
     })
   },
   methods: {
     send() {
-      this.socket.emit('testMessage', {message: 'Hello World!'})
+      bus.$emit('sendTestMessage', {source: 'App.vue', message: 'Hello World!'})
     }
   }
 }

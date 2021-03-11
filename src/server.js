@@ -96,7 +96,7 @@ MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime 
       emit('updateConnections', {connections: connections, maxConnections: maxConnections})
     })
 
-    socket.on('testMessage', (data) => { dbStore.testMessage(db, io, data, debugOn) })
+    socket.on('sendTestMessage', (data) => { dbStore.testMessage(db, io, data, debugOn) })
 
   })
 })

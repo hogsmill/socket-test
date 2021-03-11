@@ -6,6 +6,7 @@ module.exports = {
     if (debugOn) { console.log('testMessage', data) }
 
     const res = {
+      source: data.source,
       date: new Date().toISOString(),
       message: data.message
     }
