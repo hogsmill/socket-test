@@ -6,6 +6,7 @@
       Send
     </button>
     <SubComponent />
+    <QrCode />
   </div>
 </template>
 
@@ -13,11 +14,13 @@
 import bus from './socket.js'
 
 import SubComponent from './components/SubComponent.vue'
+import QrCode from './components/QrCode.vue'
 
 export default {
   name: 'App',
   components: {
-    SubComponent
+    SubComponent,
+    QrCode
   },
   data() {
     return {
