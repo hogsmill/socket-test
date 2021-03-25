@@ -10,14 +10,17 @@ if (location.hostname == 'localhost') {
 console.log('Connecting to: ' + connStr)
 const socket = io(connStr)
 
-bus.$on('sendTestMessage', (data) => {
-  console.log('bus testMessage', data)
-  socket.emit('sendTestMessage', data)
-})
+socket.on('connect_error', (err) => { bus.$emit('connectionError', err) })
 
-socket.on('testMessage', (data) => {
-  console.log('socket testMessage', data)
-  bus.$emit('testMessage', data)
-})
+socket.on('updateConnections', (data) => { bus.$emit('updateConnections', data) })
+
+// Send
+
+bus.$on('sendTestMessage', (data) => { socket.emit('sendTestMessage', data) })
+
+
+// Receive
+
+socket.on('testMessage', (data) => { bus.$emit('testMessage', data) })
 
 export default bus
