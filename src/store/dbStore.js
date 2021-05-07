@@ -10,14 +10,10 @@ module.exports = {
       date: new Date().toISOString(),
       message: data.message
     }
-    global.updating = true
-    setTimeout(function() {
-      db.collection('socketTest').insertOne(res, function(err) {
-        if (err) throw err
-        io.emit('testMessage', res)
-        global.updating = false
-      })
-    }, 10000)
+    db.collection('socketTest').insertOne(res, function(err) {
+      if (err) throw err
+      io.emit('testMessage', res)
+    })
   }
 
 }

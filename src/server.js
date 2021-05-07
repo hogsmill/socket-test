@@ -67,26 +67,6 @@ function emit(event, data) {
   io.emit(event, data)
 }
 
-function emit(event, data) {
-  if (debugOn) {
-    console.log(event, data, '(emit)')
-  }
-  io.emit(event, data)
-}
-
-global.updating = false
-function dbFun(f, data) {
-  if (global.updating) {
-    setTimeout(function() {
-      console.log('waiting...')
-      dbFun(f, data)
-    }, 1000)
-  } else {
-    console.log('running')
-    dbStore[f](db, io, data, debugOn)
-  }
-}
-
 let db
 MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime }, function (err, client) {
   if (err) throw err
@@ -110,8 +90,7 @@ MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime 
       emit('updateConnections', {connections: connections, maxConnections: maxConnections})
     })
 
-    //socket.on('sendTestMessage', (data) => { dbStore.testMessage(db, io, data, debugOn) })
-    socket.on('sendTestMessage', (data) => { dbFun('testMessage', data) })
+    socket.on('sendTestMessage', (data) => { dbStore.testMessage(db, io, data, debugOn) })
 
   })
 })
