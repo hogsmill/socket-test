@@ -15,7 +15,7 @@ done
 
 REPO=" https://github.com/hogsmill/socket-test.git"
 APPS=(
-  'socket-test,socketTest,noEstimates,3016,Socket Test'
+  'socket-test,socketTest,3016'
 )
 
 for ((i = 0; i < ${#APPS[@]}; i++))
@@ -24,9 +24,9 @@ do
 
   APP=`echo $REC | cut -d, -f1`
   COLLECTION=`echo $REC | cut -d, -f2`
-  PORT=`echo $REC | cut -d, -f4`
-  APPNAME=`echo $REC | cut -d, -f5`
-  PASSWORD=`echo $REC | cut -d, -f6`
+  PORT=`echo $REC | cut -d, -f3`
+  APPNAME=`echo $REC | cut -d, -f4`
+  PASSWORD=`echo $REC | cut -d, -f5`
 
   echo "------------------------------------------------"
   if [ -z "$APPNAME" ]; then
