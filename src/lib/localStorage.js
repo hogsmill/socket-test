@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 const LocalStorage = {
 
-  check: () => {
+  check: function() {
     let check
     const uuid = uuidv4()
     try {

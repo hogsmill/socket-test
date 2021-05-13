@@ -1,7 +1,7 @@
 
 module.exports = {
 
-  testMessage: (db, io, data, debugOn, updating) => {
+  testMessage: function(db, io, data, debugOn, updating) {
 
     if (debugOn) { console.log('testMessage', data) }
 
