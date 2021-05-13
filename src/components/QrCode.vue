@@ -17,7 +17,7 @@ export default {
     createQrCode() {
       const canvas = document.getElementById('qr')
 
-      qrCode.toCanvas(canvas, location.href, function (error) {
+      qrCode.toCanvas(canvas, location.href, (error) => {
         if (error) console.error(error)
         console.log('success!')
       })

@@ -1,7 +1,7 @@
 
 module.exports = {
 
-  testMessage: function(db, io, data, debugOn, updating) {
+  testMessage: (db, io, data, debugOn, updating) => {
 
     if (debugOn) { console.log('testMessage', data) }
 
@@ -10,7 +10,7 @@ module.exports = {
       date: new Date().toISOString(),
       message: data.message
     }
-    db.collection('socketTest').insertOne(res, function(err) {
+    db.collection('socketTest').insertOne(res, (err) => {
       if (err) throw err
       io.emit('testMessage', res)
     })

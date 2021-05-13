@@ -8,8 +8,12 @@
     </div>
     <h1>Socket Test</h1>
     <h2>Message: ({{ source }}) :{{ message }}, {{ date }}</h2>
+    <h2>Emit: {{ emitMessage }}</h2>
     <button @click="send()">
       Send
+    </button>
+    <button @click="emit()">
+      Emit
     </button>
     <SubComponent />
     <QrCode />
@@ -34,6 +38,7 @@ export default {
     return {
       date: '',
       message: '',
+      emitMessage: '',
       source: ''
     }
   },
@@ -56,17 +61,23 @@ export default {
       this.$store.dispatch('updateConnectionError', null)
       this.$store.dispatch('updateConnections', data)
     })
-    
+
     bus.$on('testMessage', (data) => {
-      console.log(data)
       this.source = data.source
       this.date = data.date
       this.message = data.message
+    })
+
+    bus.$on('emitMessage', (data) => {
+      this.emitMessage = data.message
     })
   },
   methods: {
     send() {
       bus.$emit('sendTestMessage', {source: 'App.vue', message: 'Hello World!'})
+    },
+    emit() {
+      bus.$emit('sendEmitMessage', {message: 'Emitted Message!'})
     }
   }
 }

@@ -5,7 +5,7 @@ const os = require('os')
 const prod = os.hostname() == 'agilesimulations' ? true : false
 const logFile = prod ? process.argv[4] : 'server.log'
 
-ON_DEATH(function(signal, err) {
+ON_DEATH((signal, err) => {
   let logStr = new Date()
   if (signal) {
     logStr = logStr + ' ' + signal + '\n'
@@ -13,7 +13,7 @@ ON_DEATH(function(signal, err) {
   if (err && err.stack) {
     logStr = logStr + '  ' + err.stack + '\n'
   }
-  fs.appendFile(logFile, logStr, function (err) {
+  fs.appendFile(logFile, logStr, (err) => {
     if (err) console.log(logStr)
     process.exit()
   })
@@ -60,7 +60,7 @@ const debugOn = !prod
 const connections = {}
 const maxConnections = 2000
 
-function emit(event, data) {
+let emit = (event, data) => {
   if (debugOn) {
     console.log(event, data, '(emit)')
   }
@@ -68,7 +68,7 @@ function emit(event, data) {
 }
 
 let db
-MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime }, function (err, client) {
+MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime }, (err, client) => {
   if (err) throw err
   db = client.db('db')
 
@@ -91,6 +91,8 @@ MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime 
     })
 
     socket.on('sendTestMessage', (data) => { dbStore.testMessage(db, io, data, debugOn) })
+
+    socket.on('sendEmitMessage', (data) => { emit('emitMessage', data) })
 
   })
 })

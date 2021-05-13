@@ -18,9 +18,12 @@ socket.on('updateConnections', (data) => { bus.$emit('updateConnections', data) 
 
 bus.$on('sendTestMessage', (data) => { socket.emit('sendTestMessage', data) })
 
+bus.$on('sendEmitMessage', (data) => { socket.emit('sendEmitMessage', data) })
 
 // Receive
 
 socket.on('testMessage', (data) => { bus.$emit('testMessage', data) })
+
+socket.on('emitMessage', (data) => { bus.$emit('emitMessage', data) })
 
 export default bus
