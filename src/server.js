@@ -60,7 +60,7 @@ const debugOn = !prod
 const connections = {}
 const maxConnections = 2000
 
-let emit = (event, data) => {
+const emit = (event, data) => {
   if (debugOn) {
     console.log(event, data, '(emit)')
   }
