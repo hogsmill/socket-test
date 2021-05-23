@@ -15,7 +15,7 @@ done
 
 REPO=" https://github.com/hogsmill/socket-test.git"
 APPS=(
-  'socket-test,socketTest,3016'
+  'socket-test,socketTest,3016,Socket Test'
 )
 
 for ((i = 0; i < ${#APPS[@]}; i++))
