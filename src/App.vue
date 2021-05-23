@@ -38,6 +38,7 @@ export default {
   data() {
     return {
       appName: 'LOCAL',
+      port: 999,
       date: '',
       message: '',
       emitMessage: '',
@@ -56,6 +57,9 @@ export default {
     console.log(process.env)
     if (process.env.VUE_APP_NAME) {
       this.appName = process.env.VUE_APP_NAME
+    }
+    if (process.env.VUE_APP_PORT) {
+      this.port = process.env.VUE_APP_PORT
     }
 
     this.$store.dispatch('localStorageStatus', ls.check())
