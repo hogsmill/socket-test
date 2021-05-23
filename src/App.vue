@@ -53,6 +53,7 @@ export default {
     }
   },
   created() {
+    console.log(process.env)
     this.appName = process.env.VUE_APP_NAME ? process.env.VUE_APP_NAME : 'LOCAL'
 
     this.$store.dispatch('localStorageStatus', ls.check())
