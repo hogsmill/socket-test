@@ -7,6 +7,7 @@
       WARNING: {{ localStorageStatus }} - please enable cookies in browser settings
     </div>
     <h1>Socket Test</h1>
+    <h2>App Name: {{ appName }}</h2>
     <h2>Message: ({{ source }}) :{{ message }}, {{ date }}</h2>
     <h2>Emit: {{ emitMessage }}</h2>
     <button @click="send()">
@@ -36,6 +37,7 @@ export default {
   },
   data() {
     return {
+      appName: '',
       date: '',
       message: '',
       emitMessage: '',
@@ -51,6 +53,8 @@ export default {
     }
   },
   created() {
+    this.appName = process.env.VUE_APP_NAME ? process.env.VUE_APP_NAME : 'LOCAL'
+
     this.$store.dispatch('localStorageStatus', ls.check())
 
     bus.$on('connectionError', (data) => {
