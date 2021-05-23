@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      appName: '',
+      appName: 'LOCAL',
       date: '',
       message: '',
       emitMessage: '',
@@ -54,7 +54,9 @@ export default {
   },
   created() {
     console.log(process.env)
-    this.appName = process.env.VUE_APP_NAME ? process.env.VUE_APP_NAME : 'LOCAL'
+    if (process.env.VUE_APP_NAME) {
+      this.appName = process.env.VUE_APP_NAME
+    }
 
     this.$store.dispatch('localStorageStatus', ls.check())
 
