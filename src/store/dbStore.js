@@ -10,7 +10,7 @@ module.exports = {
       date: new Date().toISOString(),
       message: data.message
     }
-    db.collection('socketTest').insertOne(res, (err) => {
+    db.gameCollection.insertOne(res, (err) => {
       if (err) throw err
       io.emit('testMessage', res)
     })
