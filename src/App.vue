@@ -6,6 +6,7 @@
     <div v-if="localStorageStatus != 'ok'" class="not-connected">
       WARNING: {{ localStorageStatus }} - please enable cookies in browser settings
     </div>
+    <div class="transition-test" />
     <h1>Socket Test</h1>
     <h2>App Name: {{ appName }}, Port: {{ port }}</h2>
     <h2>Message: ({{ source }}) :{{ message }}, {{ date }}</h2>
@@ -101,5 +102,16 @@ export default {
     color: #fff;
     font-weight: bold;
     margin: 6px;
+  }
+
+  .transition-test {
+    height: 50px;
+    width: 200px;
+    background-color: red;
+    transition: width 1s;
+
+    &:hover {
+      width: 400px;
+    }
   }
 </style>
