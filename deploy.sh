@@ -11,11 +11,11 @@ do
   shift
 done
 
-BASEPORT=4000
-REPO="https://github.com/hogsmill/socket-test.git"
-MAINAPP="socket-test"
-MAINCOLLECTION="socketTest"
-MAINNAME="Socket Test"
+BASEPORT=4650
+REPO="https://github.com/hogsmill/google-meet.git"
+MAINAPP="google-meet"
+MAINCOLLECTION="googleMeet"
+MAINNAME="Google Meet"
 ROUTES=(
   '',''
   'new','New'
