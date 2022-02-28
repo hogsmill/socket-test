@@ -60,7 +60,7 @@ export default {
         const data = lineChartFuns.data({labels: ['one', 'two', 'three', 'four', 'five'], datasets: results})
         const options = lineChartConfig.config().options
         window.setTimeout(function() {
-          bus.$emit('sendShowGraph', {chartdata: data, options: options})
+          bus.emit('sendShowGraph', {chartdata: data, options: options})
         }, 100)
       }
     }

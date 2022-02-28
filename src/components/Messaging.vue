@@ -31,22 +31,22 @@ export default {
     }
   },
   created() {
-    bus.$on('testMessage', (data) => {
+    bus.on('testMessage', (data) => {
       this.source = data.source
       this.date = data.date
       this.message = data.message
     })
 
-    bus.$on('emitMessage', (data) => {
+    bus.on('emitMessage', (data) => {
       this.emitMessage = data.message
     })
   },
   methods: {
     send() {
-      bus.$emit('sendTestMessage', {source: 'App.vue', message: 'Hello World!'})
+      bus.emit('sendTestMessage', {source: 'App.vue', message: 'Hello World!'})
     },
     emit() {
-      bus.$emit('sendEmitMessage', {message: 'Emitted Message!'})
+      bus.emit('sendEmitMessage', {message: 'Emitted Message!'})
     }
   }
 }

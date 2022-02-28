@@ -93,11 +93,11 @@ export default {
   created() {
     this.$store.dispatch('localStorageStatus', ls.check())
 
-    bus.$on('connectionError', (data) => {
+    bus.on('connectionError', (data) => {
       this.$store.dispatch('updateConnectionError', data)
     })
 
-    bus.$on('updateConnections', (data) => {
+    bus.on('updateConnections', (data) => {
       this.$store.dispatch('updateConnectionError', null)
       this.$store.dispatch('updateConnections', data)
     })
