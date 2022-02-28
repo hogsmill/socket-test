@@ -11,12 +11,47 @@
       <i class="fas fa-envelope-open-text" :class="{'selected': tab == 'messaging'}" @click="setTab('messaging')" title="Message/socket testing" />
       <i class="fas fa-chart-line" :class="{'selected': tab == 'graph'}" @click="setTab('graph')" title="Graph testing" />
       <i class="fas fa-qrcode" :class="{'selected': tab == 'qrcode'}" @click="setTab('qrcode')" title="QR Code testing" />
-      <i class="fas fa-window-maximize" :class="{'selected': tab == 'modal'}" @click="setTab('modal')" title="Modal Test" />
+    </div>
+    <div>
+      <table>
+        <tr>
+          <td>
+            Dropdown test for Mac:
+          </td>
+          <td>
+            <select id="dropdown-test-1" @change="dropdownChanged()">
+              <option value="">
+                -- Select --
+              </option>
+              <option value="first" :selected="option == 'first'">
+                Change to 1st Option
+              </option>
+              <option value="second" :selected="option == 'second'">
+                Change to 2nd Option
+              </option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Conditional Select:
+          </td>
+          <td>
+            <select id="dropdown-test-2">
+              <option value="">
+                -- Select --
+              </option>
+              <option v-for="(opt, index) in options" :key="index">
+                {{ opt }}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </table>
     </div>
     <Messaging v-if="tab == 'messaging'" />
     <Graph v-if="tab == 'graph'" />
     <QrCode v-if="tab == 'qrcode'" />
-    <Modal v-if="tab == 'modal'"  />
   </div>
 </template>
 
@@ -28,15 +63,13 @@ import ls from './lib/localStorage.js'
 import Messaging from './components/Messaging.vue'
 import Graph from './components/Graph.vue'
 import QrCode from './components/QrCode.vue'
-import Modal from './components/Modal.vue'
 
 export default {
   name: 'App',
   components: {
     Messaging,
     Graph,
-    QrCode,
-    Modal
+    QrCode
   },
   data() {
     return {
@@ -72,6 +105,12 @@ export default {
   methods: {
     setTab(tab) {
       this.tab = tab
+    },
+    dropdownChanged() {
+      this.option = document.getElementById('dropdown-test-1').value
+      console.log('option', this.option)
+      this.options = this.opts[this.option]
+      console.log('options', this.options)
     }
   }
 }
