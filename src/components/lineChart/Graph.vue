@@ -1,15 +1,37 @@
+<template>
+  <canvas id="canvas" />
+</template>
+
 <script>
 import bus from '../../socket.js'
 
-import { Line } from 'vue-chartjs'
+import { Chart, registerables } from 'chart.js'
+Chart.register(...registerables)
 
 export default {
-  extends: Line,
   mounted() {
     bus.on('showGraph', (data) => {
-      console.log(data)
-      this.renderChart(data.chartdata, data.options)
+      this.renderChart(data)
     })
+  },
+  methods: {
+    renderChart(data) {
+      console.log(data)
+      const ctx = document.getElementById('canvas').getContext('2d')
+      new Chart(ctx, {
+        type: 'line',
+        data: data.chartdata,
+        options: data.options
+      })
+    }
   }
 }
 </script>
+
+<style lang="scss">
+  canvas {
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+  }
+</style>

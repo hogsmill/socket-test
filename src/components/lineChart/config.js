@@ -38,13 +38,14 @@ export default {
       },
       options: {
         scales: {
-          yAxes: [{
-            ticks: {beginAtZero: true, stepSize: 1},
+          y: {
+            beginAtZero: true,
+            stepSize: 1,
             gridLines: {display: true}
-          }],
-          xAxes: [{
+          },
+          x: {
             gridLines: {display: false}
-          }]
+          }
         },
         elements: {
           line: {
@@ -52,7 +53,7 @@ export default {
           }
         },
         legend: {display: true},
-        responsive: true,
+        responsive: false,
         maintainAspectRatio: false
       }
     }
