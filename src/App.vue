@@ -11,6 +11,8 @@
       <i class="fas fa-envelope-open-text" :class="{'selected': tab == 'messaging'}" @click="setTab('messaging')" title="Message/socket testing" />
       <i class="fas fa-chart-line" :class="{'selected': tab == 'graph'}" @click="setTab('graph')" title="Graph testing" />
       <i class="fas fa-qrcode" :class="{'selected': tab == 'qrcode'}" @click="setTab('qrcode')" title="QR Code testing" />
+      <i class="fas fa-images" :class="{'selected': tab == 'carousel-sliderm'}" @click="setTab('carousel-sliderm')" title="Carousel sliderm testing" />
+      <i class="fas fa-images" :class="{'selected': tab == 'carousel-vue3'}" @click="setTab('carousel-vue3')" title="Carousel Vue 3 testing" />
     </div>
     <div>
       <table>
@@ -52,6 +54,8 @@
     <Messaging v-if="tab == 'messaging'" />
     <Graph v-if="tab == 'graph'" />
     <QrCode v-if="tab == 'qrcode'" />
+    <CarouselTestSliderm v-if="tab == 'carousel-sliderm'" />
+    <CarouselTestVue3 v-if="tab == 'carousel-vue3'" />
   </div>
 </template>
 
@@ -63,13 +67,17 @@ import ls from './lib/localStorage.js'
 import Messaging from './components/Messaging.vue'
 import Graph from './components/Graph.vue'
 import QrCode from './components/QrCode.vue'
+import CarouselTestSliderm from './components/CarouselSliderm.vue'
+import CarouselTestVue3 from './components/CarouselVue3.vue'
 
 export default {
   name: 'App',
   components: {
     Messaging,
     Graph,
-    QrCode
+    QrCode,
+    CarouselTestSliderm,
+    CarouselTestVue3
   },
   data() {
     return {

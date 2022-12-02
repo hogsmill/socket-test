@@ -20,6 +20,7 @@
     "monodb": "^1.5.1",
     "qrcode": "^1.5.1",
     "sass": "^1.56.1",
+    "sliderm": "^1.1.0",
     "socket.io": "^4.5.4",
     "socket.io-client": "^4.5.4",
     "ssri": "^9.0.1",
@@ -27,6 +28,7 @@
     "vue": "^3.2.45",
     "vue-final-modal": "^3.4.3",
     "vue-split-carousel": "^2.2.3",
+    "vue3-carousel": "^0.2.8",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
