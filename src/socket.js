@@ -45,6 +45,8 @@ bus.on('sendTestMessage', (data) => { socket.emit('sendTestMessage', data) })
 
 bus.on('sendEmitMessage', (data) => { socket.emit('sendEmitMessage', data) })
 
+bus.on('sendUploadFile', (data) => { socket.emit('sendUploadFile', data) })
+
 bus.on('sendShowGraph', (data) => { bus.emit('showGraph', data) })
 
 // Receive
@@ -52,5 +54,7 @@ bus.on('sendShowGraph', (data) => { bus.emit('showGraph', data) })
 socket.on('testMessage', (data) => { bus.emit('testMessage', data) })
 
 socket.on('emitMessage', (data) => { bus.emit('emitMessage', data) })
+
+socket.on('fileUploaded', (data) => { bus.emit('fileUploaded', data) })
 
 export default bus

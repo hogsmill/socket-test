@@ -13,6 +13,7 @@
       <i class="fas fa-qrcode" :class="{'selected': tab == 'qrcode'}" @click="setTab('qrcode')" title="QR Code testing" />
       <i class="fas fa-images" :class="{'selected': tab == 'carousel-sliderm'}" @click="setTab('carousel-sliderm')" title="Carousel sliderm testing" />
       <i class="fas fa-images" :class="{'selected': tab == 'carousel-vue3'}" @click="setTab('carousel-vue3')" title="Carousel Vue 3 testing" />
+      <i class="fas fa-filealt" :class="{'selected': tab == 'file'}" @click="setTab('file')" title="File upload testing" />
     </div>
     <div>
       <table>
@@ -56,6 +57,7 @@
     <QrCode v-if="tab == 'qrcode'" />
     <CarouselTestSliderm v-if="tab == 'carousel-sliderm'" />
     <CarouselTestVue3 v-if="tab == 'carousel-vue3'" />
+    <File v-if="tab == 'file'" />
   </div>
 </template>
 
@@ -69,6 +71,7 @@ import Graph from './components/Graph.vue'
 import QrCode from './components/QrCode.vue'
 import CarouselTestSliderm from './components/CarouselSliderm.vue'
 import CarouselTestVue3 from './components/CarouselVue3.vue'
+import File from './components/File.vue'
 
 export default {
   name: 'App',
@@ -77,7 +80,8 @@ export default {
     Graph,
     QrCode,
     CarouselTestSliderm,
-    CarouselTestVue3
+    CarouselTestVue3,
+    File
   },
   data() {
     return {

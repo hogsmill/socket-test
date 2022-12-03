@@ -106,6 +106,8 @@ MongoClient.connect(url, { useUnifiedTopology: true, maxIdleTimeMS: maxIdleTime 
 
     socket.on('sendEmitMessage', (data) => { emit('emitMessage', data) })
 
+    socket.on('sendUploadFile', (data) => { dbStore.writeFile(db, io, data, debugOn) })
+
   })
 })
 
